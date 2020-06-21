@@ -1,12 +1,10 @@
-# testserver
-
-Experimenting with handling SQL requests with PyMySQL in Flask
+# Handling SQL requests with PyMySQL in Flask
 
 The purpose of this project was to create a thread-safe SQL handler in Python.
 
 SELECT operations are read-only and should be able to be handled synchronously. However, they still require separate connections to the MySQL database because PyMySQL is not thread safe.
 
-From reading the PyMySQL documentation, I thought the following code would be sufficient:
+~From reading the PyMySQL documentation, I thought the following code would be sufficient:
 
 ```python
 def threaded_select(self):
@@ -17,7 +15,9 @@ def threaded_select(self):
     return json.dumps(messages)
 ```
 
-However, I was met with packet size errors when using this code. Perhaps there is a gap in my understanding/implementation or a better way to do it than my current implementation.
+However, I was met with packet size errors when using this code. Perhaps there is a gap in my understanding/implementation or a better way to do it than my current implementation.~
+
+Looking back, it obviously errors because the connection isn't closed.
 
 INSERT operations modify the database and need to be handled asynchronously. I used a semaphore to make sure that only one connection is modifying the database at once. Funnily enough, this asynchronous nature lets me use one connection to handle all insertions.
 
