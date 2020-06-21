@@ -4,7 +4,7 @@ The purpose of this project was to create a thread-safe SQL handler in Python.
 
 SELECT operations are read-only and should be able to be handled synchronously. However, they still require separate connections to the MySQL database because PyMySQL is not thread safe.
 
-~From reading the PyMySQL documentation, I thought the following code would be sufficient:
+~From reading the PyMySQL documentation, I thought the following code would be sufficient:~
 
 ```python
 def threaded_select(self):
@@ -15,7 +15,7 @@ def threaded_select(self):
     return json.dumps(messages)
 ```
 
-However, I was met with packet size errors when using this code. Perhaps there is a gap in my understanding/implementation or a better way to do it than my current implementation.~
+~However, I was met with packet size errors when using this code. Perhaps there is a gap in my understanding/implementation or a better way to do it than my current implementation.~
 
 Looking back, it obviously errors because the connection isn't closed.
 
